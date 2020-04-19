@@ -117,7 +117,8 @@ var UiContorller = (function () {
         budgetLabel: '.budget__value',
         incomeLabel: '.budget__income--value',
         expenseLabel: '.budget__expenses--value',
-        percentageLabel: '.budget__expenses--percentage'
+        percentageLabel: '.budget__expenses--percentage',
+        container:'.container'
     }
 
     return {
@@ -134,10 +135,10 @@ var UiContorller = (function () {
             // Create HTML string with place holder text
             if(type==='inc'){
                 element = DOMstrings.incomeContainer;
-          html = '<div class="item clearfix" id="income-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+          html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
             }else if(type === 'exp'){
                 element = DOMstrings.expensesContainer;
-          html ='<div class="item clearfix" id="expense-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div>   <div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
+          html ='<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div>   <div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>'
             }
 
 
@@ -197,7 +198,6 @@ var contorller = (function (budgetCtrl, Uictrl) {
 
         document.querySelector(DOM.inputBtn).addEventListener('click', function () {
             ctrlAddItem();
-
         });
 
         document.addEventListener('keypress', function (event) {
@@ -205,6 +205,7 @@ var contorller = (function (budgetCtrl, Uictrl) {
                 ctrlAddItem();
             }
         });
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeletItem);
     }
 
     var updateBudget = function(){
@@ -239,6 +240,24 @@ var contorller = (function (budgetCtrl, Uictrl) {
       
         }
       
+    }
+
+    var ctrlDeletItem = function(event){
+        var itemID, splitID, type, ID;
+
+       itemID = event.target.parentNode.parentNode.parentNode.parentNode.id
+        console.log(itemID)
+        if (itemID){
+            //inc-1
+            splitID = itemID.split('-');
+            type = splitID[0];
+            ID = splitID[i];
+            //1. delete Item from the data structure
+
+            //2. delete item from UI
+
+            //3. update and show the new budget
+        }
     }
 
     return {
